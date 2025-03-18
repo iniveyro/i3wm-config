@@ -28,7 +28,7 @@ exec --no-startup-id dex --autostart --environment i3
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+#exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -44,6 +44,10 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
+#Control de brillo
+bindsym XF86MonBrightnessUp exec brightnessctl set +10%
+bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -52,10 +56,7 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-#bindsym $mod+Return exec i3-sensible-terminal
-#bindsym $mod+Return exec xterm -bg black -fg white
 bindsym $mod+Return exec alacritty
-
 
 # kill focused window
 #bindsym $mod+Shift+q kill
@@ -100,10 +101,11 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+#bindsym $mod+Shift+space floating toggle
+bindsym $mod+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+#bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -186,8 +188,9 @@ bindsym $mod+r mode "resize"
 #	status_command i3status
 #}
 
-gaps inner 5
-gaps outer 5
+gaps inner 2
+gaps outer 2
+client.focused #ffffff #ffffff #000000 #ffffff
 
 # Ejecutar Rofi
 #bindsym $mod+d exec rofi -show drun
@@ -197,16 +200,19 @@ bindsym $mod+d exec ~/.config/polybar/shapes/scripts/launcher.sh
 bindsym $mod+n exec nemo
 
 # Apaga el display cada 30seg
-exec --no-startup-id xset dpms 0 0 30
+exec --no-startup-id xset dpms 30
 
 # Fondo de pantalla
-exec_always feh --bg-fill /home/ivann/Backgrounds/ArchWallpaper1.png
+# exec_always feh --bg-fill /home/ivann/Backgrounds/1255520-gorgerous-black-wallpaper-2400x1260-for-desktop.jpg
+#exec_always feh --bg-fill /home/ivann/Backgrounds/Tux2.png
+exec_always feh --bg-fill /home/ivann/Backgrounds/smoke.jpg
 
-# Captura de pantalla completa: guardar y copiar al portapapeles
-bindsym Shift+Print exec --no-startup-id gnome-screenshot -c -f ~/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png && xclip -selection clipboard -t image/png -i ~/Screenshots/$(ls -t ~/Screenshots | head -1)
+# Captura de pantalla completa y copiar al portapapeles
+#bindsym Shift+Print exec --no-startup-id gnome-screenshot -c
+bindsym Shift+Print exec --no-startup-id flameshot full -c
 
-# Captura de una selección de la pantalla: guardar y copiar al portapapeles
-bindsym Print exec --no-startup-id gnome-screenshot -a -c -f ~/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png && xclip -selection clipboard -t image/png -i ~/Screenshots/$(ls -t ~/Screenshots | head -1)
+# Captura de una selección de pantalla y copiar al portapapeles
+bindsym Print exec --no-startup-id flameshot gui -c
 
 # Ocultar los bordes de las ventanas cuando sea posible
 hide_edge_borders both
@@ -218,15 +224,16 @@ for_window [class=".*"] border pixel 1
 #exec_always polybar
 exec_always bash ~/.config/polybar/launch.sh --shapes 
 
-#Ejecutar picom
-exec --no-startup-id picom -b
-
 #Ejecutar Slimbook
 exec --no-startup-id slimbookbattery --minimize
 
 #Script para cambiar escritorios
 bindsym $mod+Tab exec python ~/.config/i3/changedesktop.py
 
-#Montaje OneDrive
-exec --no-startup-id rclone --vfs-cache-mode writes mount Onedrive: ~/Onedrive
+#Inicializar rama main como principal
+#git config --global init.defaultBranch main
+
+#Filtro sepia para la vista
+bindsym $mod+Shift+z exec redshift -O 4500  # Activa filtro sepia
+bindsym $mod+Shift+x exec redshift -x       # Desactiva filtro sepia
 
