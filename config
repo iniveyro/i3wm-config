@@ -190,7 +190,7 @@ bindsym $mod+r mode "resize"
 
 gaps inner 2
 gaps outer 2
-client.focused #ffffff #ffffff #000000 #ffffff
+#client.focused #ffffff #ffffff #000000 #ffffff
 
 # Ejecutar Rofi
 #bindsym $mod+d exec rofi -show drun
@@ -203,22 +203,28 @@ bindsym $mod+n exec nemo
 exec --no-startup-id xset dpms 30
 
 # Fondo de pantalla
-# exec_always feh --bg-fill /home/ivann/Backgrounds/1255520-gorgerous-black-wallpaper-2400x1260-for-desktop.jpg
+#exec_always feh --bg-fill /home/ivann/Backgrounds/1255520-gorgerous-black-wallpaper-2400x1260-for-desktop.jpg
 #exec_always feh --bg-fill /home/ivann/Backgrounds/Tux2.png
 exec_always feh --bg-fill /home/ivann/Backgrounds/smoke.jpg
+#exec_always feh --bg-fill /home/ivann/Backgrounds/topology.jpg
+#exec_always feh --bg-fill /home/ivann/Backgrounds/wave.jpg
+#exec_always feh --bg-fill /home/ivann/Backgrounds/1738929660105.jpg
+
+# Picom
+exec_always --no-startup-id picom
 
 # Captura de pantalla completa y copiar al portapapeles
 #bindsym Shift+Print exec --no-startup-id gnome-screenshot -c
 bindsym Shift+Print exec --no-startup-id flameshot full -c
 
 # Captura de una selección de pantalla y copiar al portapapeles
-bindsym Print exec --no-startup-id flameshot gui -c
+bindsym Print exec --no-startup-id flameshot gui
 
 # Ocultar los bordes de las ventanas cuando sea posible
 hide_edge_borders both
 
 # Eliminar los títulos de las ventanas estableciendo un borde mínimo
-for_window [class=".*"] border pixel 1
+for_window [class=".*"] border pixel 0
 
 #Polybar
 #exec_always polybar
@@ -236,4 +242,3 @@ bindsym $mod+Tab exec python ~/.config/i3/changedesktop.py
 #Filtro sepia para la vista
 bindsym $mod+Shift+z exec redshift -O 4500  # Activa filtro sepia
 bindsym $mod+Shift+x exec redshift -x       # Desactiva filtro sepia
-
